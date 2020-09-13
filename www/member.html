@@ -41,6 +41,13 @@
                     $("#frit").append(frit);
                     $("#satt").append(satt);
                     $("#sunt").append(sunt);
+                    $("#montg").append(mont);
+                    $("#tuetg").append(tuet);
+                    $("#wedtg").append(wedt);
+                    $("#thutg").append(thut);
+                    $("#fritg").append(frit);
+                    $("#sattg").append(satt);
+                    $("#suntg").append(sunt);
                 });
             });
         });
@@ -104,7 +111,7 @@
 
 var ctx = document.getElementById('myChart').getContext('2d');
 var days = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
-var temperature = [mont,tuet,wedt,thut,frit,satt,sunt];
+var temperature = [document.getElementById("mont"),document.getElementById("tuet"),document.getElementById("wedt"),document.getElementById("thut"),document.getElementById("frit"),document.getElementById("satt"),document.getElementById("sunt")];
 var myChart = new Chart(ctx, {
   type: 'line',
   data: {
