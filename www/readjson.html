@@ -14,7 +14,7 @@
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-            var url = "http://localhost/mysql/json.php";
+            var url = "http://192.168.8.159/mysql/json.php";
             $.getJSON(url, function(result) {
                 console.log(result);
                 $.each(result, function(i, field) {
