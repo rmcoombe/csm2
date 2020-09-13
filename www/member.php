@@ -16,8 +16,7 @@
         $(document).ready(function() {
             var url = "http://192.168.8.159/mysql/json.php";
             var cm = window.localStorage.getItem('cm');
-            var phpcm = "{cm:"+cm+"}";
-            console.log(phpcm);
+            console.log(cm);
             $.getJSON(url,{ "cm": cm }, function(result) {
                 console.log(result);
                 $.each(result, function(i, field) {
