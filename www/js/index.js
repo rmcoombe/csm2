@@ -2,7 +2,7 @@ function crewScan(){
 cordova.plugins.barcodeScanner.scan(
       function (result) {
             document.getElementById("varname").value = result.text;
-            //eventFire(document.getElementById('varname'), 'click');
+            search();
           
       },
       function (error) {
