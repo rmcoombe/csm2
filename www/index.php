@@ -40,42 +40,55 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 
   </div>
 </div>
+<?php 
+$host = "localhost";
+$user = "root";
+$pass = "";
+$db = "testing";
+ 
+$conn = mysqli_connect($host,$user,$pass, $db);
+if(!$conn)
+{
+  die("Connection failed: " . mysqli_connect_error());
+}
+ 
+?>
+ 
+<?php 
+  $sql = "select * from tbl_employee where EmployeeID = 3200";
+  $rs = mysqli_query($conn, $sql);
+  //get row
+  $fetchRow = mysqli_fetch_assoc($rs);
+?> 
+ 
+ 
+ 
+<!DOCTYPE html>
+<html>
+<head>  
+<title> Retrieve data from database and display in php form</title>
+ 
+<style>
+  body{
+    font-family:verdana;
+  }
+  .container{width:500px;margin: 0 auto;}
+  h3{line-height:20px;font-size:20px;}
+  input{display:block;width:350px;height:20px;margin:10px 0;}
+  textarea{display:block;width:350px;margin:10px 0;}
+  button{background:green; border:1px solid green;width:70px;height:30px;color:#ffffff}
+</style>
+ 
+ 
+</head> 
+<body>
+ 
+  <i>Name:</i><i><?php echo $fetchRow['name']?></i>
+  
 
-<!-- Header -->
-<header class="w3-container w3-white w3-center" style="padding-top:60px; padding-bottom:10px; padding-right: 10px; padding-left: 10px">
-    <img src="img/logo_main.png" alt="logo_main">
-</header>
-<h1>Welcome</h1>
-<p>This is the NIO tyre app. It can be used to update wheel, tyre, TPMS and weight info. Select an option from the buttons below or use the top menu</p>
-
- <div id="row1">
-    <div class="row">
-        <div class="column">
-            <a href="viewSets.html"><img src="img\view_sets.png" alt="view set button" width="100%" height="auto"></a>
-        </div>
-        <div class="column">
-          <a href="updateSet.html"><img src="img\update_set.png" alt="update set button" width="100%" height="auto"></a>
-    </div>
-  </div>
-  </br></br>
-
-  <div id="row2" >
-    <div class="row">
-        <div class="column">
-             <a href="clear.html"><img src="img\clear_set.png" alt="clear set button" width="100%" height="auto"></a>
-        </div>
-        <div class="column">
-           <a href="replace.html"><img src="img\replace_wheel.png" alt="replace wheel button" width="100%" height="auto"></a>
-        </div>
-    </div>
-  </div>
-  </div>
 
 
-<div id="footer" class="w3-display-bottomleft">
-<img src="img\footerImage.png" alt="nio and mich logo" width="100%" height="auto">  
-</div> 
-
+</body>
 <script>
 // Used to toggle the menu on small screens when clicking on the menu button
 function myFunction() {
@@ -93,5 +106,5 @@ function myFunction() {
 
 </script>
 
-</body>
+
 </html>

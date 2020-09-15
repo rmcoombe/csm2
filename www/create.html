@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<title>NIO Tyre App</title>
+<title>W3.CSS Template</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="css/w3.css">
@@ -26,8 +26,9 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
     <a href="home.html" class="w3-bar-item w3-button w3-padding-large w3-blue-grey"><i class="fa fa-home fa-2x w3-padding-10 w3-text-white"></i></a>
     <a href="viewSets.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">View Sets</a>
     <a href="updatSet.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Update Set</a>
+    <a href="create.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Create Initial Set</a>
     <a href="clear.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Clear</a>
-    <a href="replace.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Replace or Add Wheel</a>
+    <a href="replace.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Replace Wheel</a>
 
   </div>
 
@@ -35,9 +36,9 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
   <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
     <a href="viewSets.html" class="w3-bar-item w3-button w3-padding-large">View Sets</a>
     <a href="updateSet.html" class="w3-bar-item w3-button w3-padding-large">Update Set</a>
+    <a href="create.html" class="w3-bar-item w3-button w3-padding-large">Create Initial Set</a>
     <a href="clear.html" class="w3-bar-item w3-button w3-padding-large">Clear</a>
-    <a href="replace.html" class="w3-bar-item w3-button w3-padding-large">Replace or Add Wheel</a>
-
+    <a href="replace.html" class="w3-bar-item w3-button w3-padding-large">Replace Wheel</a>
   </div>
 </div>
 
@@ -45,38 +46,61 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 <header class="w3-container w3-white w3-center" style="padding-top:60px; padding-bottom:10px; padding-right: 10px; padding-left: 10px">
     <img src="img/logo_main.png" alt="logo_main">
 </header>
-<h1>Welcome</h1>
-<p>This is the NIO tyre app. It can be used to update wheel, tyre, TPMS and weight info. Select an option from the buttons below or use the top menu</p>
+<h1>Create Initial Set</h1>
+<p>Choose a set no and a position then scan the wheel and TPMS and click create</p>
 
- <div id="row1">
-    <div class="row">
-        <div class="column">
-            <a href="viewSets.html"><img src="img\view_sets.png" alt="view set button" width="100%" height="auto"></a>
-        </div>
-        <div class="column">
-          <a href="updateSet.html"><img src="img\update_set.png" alt="update set button" width="100%" height="auto"></a>
-    </div>
-  </div>
+<label for="set">Choose a Set:</label>
+
+  <select id="setNo" onchange="setNo()">
+    <option value="0">Select Set</option>
+    <option value="set1">1</option>
+    <option value="set2">2</option>
+    <option value="set3">3</option>
+    <option value="set4">4</option>
+    <option value="set5">5</option>
+    <option value="set6">6</option>
+  </select> 
+</br></br>
+  <label for="position">Choose a Position:</label>
+
+  <select id="position" onchange="getWheelInfo()" >
+    <option value="0">Select Set</option>
+    <option value="FL">Front Left</option>
+    <option value="FR">Front Right</option>
+    <option value="RL">Rear Left</option>
+    <option value="RR">Rear Right</option>
+  </select> 
   </br></br>
-
-  <div id="row2" >
+  <div id="replaceInputs">
     <div class="row">
         <div class="column">
-             <a href="clear.html"><img src="img\clear_set.png" alt="clear set button" width="100%" height="auto"></a>
+            <label for="wheel">New Wheel No</label><br>
+            <input type="number" id="wheelNumber" name="wheelNumber" value=""></br></br>
         </div>
         <div class="column">
-           <a href="replace.html"><img src="img\replace_wheel.png" alt="replace wheel button" width="100%" height="auto"></a>
+            <label for="tpms">New TPMS No</label><br>
+                <input type="number" id="tpmsNumber" name="tpmsNumber" value=""></br></br>
+        </div>
+    </div>
+    <button class="mainButton" onclick="replaceWheel()">Update</button>
+  </div>
+  
+
+  <div id="footer" class="w3-display-bottomleft">
+    <div class="row">
+        <div class="column">
+            <img src="img/scanWheel.png" style="width:100%"; onclick="wheelScan()" alt="scan_image">
+        </div>
+        <div class="column">
+            <img src="img/scanTPM.png" style="width:100%" onclick="tpmScan()" alt="scan_image">
         </div>
     </div>
   </div>
-  </div>
-
-
-<div id="footer" class="w3-display-bottomleft">
-<img src="img\footerImage.png" alt="nio and mich logo" width="100%" height="auto">  
-</div> 
+ 
 
 <script>
+var setChosen ="false";
+
 // Used to toggle the menu on small screens when clicking on the menu button
 function myFunction() {
   var x = document.getElementById("navDemo");
@@ -88,10 +112,14 @@ function myFunction() {
 }
 
 
-
+function setNo(){
+  setChosen=true;
+}
 
 
 </script>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
 
 </body>
 </html>
