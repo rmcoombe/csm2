@@ -79,6 +79,7 @@
                             })
                             .then((Ok) => {
                               if (Ok) {
+                                chart.destroy()
                                 location.reload();
                               }
                             });
