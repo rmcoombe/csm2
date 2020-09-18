@@ -56,6 +56,7 @@
     </script>
     <script>
             function update() {
+                chart.destroy();
                 var id = window.localStorage.getItem('cm');
                 var temp = document.getElementById("temp").value;
                 var dataString = "id=" + id + "&temp=" + temp + "&update=";
@@ -150,6 +151,7 @@
         </div> </br>
         <div class="item" align="center">
             <button id="update" onclick="update()" class="button button-block" value="Update">Update</button>
+            <button id="update" onclick="destroyg()" class="button button-block" value="Update">Destroy</button>
         </div>
     </div>
 
@@ -295,5 +297,10 @@ var chart = new Chart(ctx, {
             }
 });
 
+
+function destroyg(){
+    chart.destroy();
+}
+</script>
 
 </html>
