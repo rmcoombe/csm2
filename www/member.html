@@ -15,7 +15,7 @@
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script type="text/javascript">
 
-            var url = "http://192.168.8.159/mysql/json.php";
+            /*var url = "http://192.168.8.159/mysql/json.php";
             var cm = window.localStorage.getItem('cm');
             console.log(cm);
              $.getJSON(url,{ "cm": cm }, function(result) {
@@ -51,46 +51,227 @@
                     localStorage.setItem('gsatt', satt);
                     localStorage.setItem('gsunt', sunt);
                 });
+            });*/
+            $( document ).ready(function() {
+            load();
             });
 
     </script>
     <script>
-            function update() {
-                chart.destroy();
-                var id = window.localStorage.getItem('cm');
-                var temp = document.getElementById("temp").value;
-                var dataString = "id=" + id + "&temp=" + temp + "&update=";
-                $.ajax({
-                    type: "POST",
-                    url: "http://192.168.8.159/mysql/update.php",
-                    data: dataString,
-                    crossDomain: true,
-                    cache: false,
-                    beforeSend: function() {
-                        $("#update").val('Connecting...');
-                    },
-                    success: function(data) {
-                        if (data == "success") {
-                            $("#update").val("Update");
-                            //postUpdate();
-                            swal({
-                              title: "Nice!",
-                              text: "Temperature Updated",
-                              icon: "success",
-                            })
-                            .then((Ok) => {
-                              if (Ok) {
-                                chart.destroy()
-                                location.reload();
-                              }
-                            });
-                        } else if (data == "error") {
-                            alert("error");
+        function load() {
+            var url = "http://192.168.8.159/mysql/json.php";
+            var cm = window.localStorage.getItem('cm');
+             $.getJSON(url,{ "cm": cm }, function(result) {
+                $.each(result, function(i, field) {
+                    var name = field.name;
+                    var position = field.Position;
+                    var supervisor = field.Supervisor;
+                    var team = field.Team;
+                    var mont = field.MonT;
+                    var tuet = field.TueT;
+                    var wedt = field.WedT;
+                    var thut = field.ThuT;
+                    var frit = field.FriT;
+                    var satt = field.SatT;
+                    var sunt = field.SunT;
+                    $("#name").append(name);
+                    $("#team").append(team);
+                    $("#position").append(position);
+                    $("#supervisor").append(supervisor);
+                    $("#mont").append(mont);
+                    $("#tuet").append(tuet);
+                    $("#wedt").append(wedt);
+                    $("#thut").append(thut);
+                    $("#frit").append(frit);
+                    $("#satt").append(satt);
+                    $("#sunt").append(sunt);
+                    localStorage.setItem('gmont', mont);
+                    localStorage.setItem('gtuet', tuet);
+                    localStorage.setItem('gwedt', wedt);
+                    localStorage.setItem('gthut', thut);
+                    localStorage.setItem('gfrit', frit);
+                    localStorage.setItem('gsatt', satt);
+                    localStorage.setItem('gsunt', sunt);
+                });
+                graph();
+            });
+           
+       }
+
+       function graph(){
+        var mon=localStorage.getItem('gmont');
+        var tue=localStorage.getItem('gtuet');
+        var wed=localStorage.getItem('gwedt');
+        var thu=localStorage.getItem('gthut');
+        var fri=localStorage.getItem('gfrit');
+        var sat=localStorage.getItem('gsatt');
+        var sun=localStorage.getItem('gsunt');
+
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var chart = new Chart(ctx, {
+            // The type of chart we want to create
+            type: 'line',
+
+            // The data for our dataset
+            data: {
+                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                datasets: [{
+                    borderColor: "#3e95cd",
+                    fill: false,
+                    data: [mon, tue, wed, thu, fri, sat, sun]
+                }]
+            },
+
+            // Configuration options go here
+                    options: {
+                        responsive: true,
+                        legend: {
+                            display:false,
+                            position: 'bottom',
+                        },
+                        hover: {
+                            mode: 'label'
+                        },
+                        scales: {
+                            xAxes: [{
+                                    display: true,
+                                }],
+                            yAxes: [{
+                                    display: true,
+                                    ticks: {
+                                        suggestedMin: 35, 
+                                        suggestedMax: 40,
+                                    }
+                                }]
+                        },
+                        title: {
+                            display: true,
+                            text: 'Temperature C'
                         }
                     }
-                });
+        });
 
-            };
+}
+
+    function update() {
+        //chart.destroy()
+        var id = window.localStorage.getItem('cm');
+        var temp = document.getElementById("temp").value;
+        var dataString = "id=" + id + "&temp=" + temp + "&update=";
+        $.ajax({
+            type: "POST",
+            url: "http://192.168.8.159/mysql/update.php",
+            data: dataString,
+            crossDomain: true,
+            cache: false,
+            beforeSend: function() {
+                $("#update").val('Connecting...');
+            },
+            success: function(data) {
+                if (data == "success") {
+                    $("#update").val("Update");
+                    var url = "http://192.168.8.159/mysql/json.php";
+                    var cm = window.localStorage.getItem('cm');
+                    console.log(cm);
+                     $.getJSON(url,{ "cm": cm }, function(result) {
+                        console.log(result);
+                        $.each(result, function(i, field) {
+                            var name = field.name;
+                            var position = field.Position;
+                            var supervisor = field.Supervisor;
+                            var team = field.Team;
+                            var mont = field.MonT;
+                            var tuet = field.TueT;
+                            var wedt = field.WedT;
+                            var thut = field.ThuT;
+                            var frit = field.FriT;
+                            var satt = field.SatT;
+                            var sunt = field.SunT;
+                            $("#mont").html(mont);
+                            $("#tuet").html(tuet);
+                            $("#wedt").html(wedt);
+                            $("#thut").html(thut);
+                            $("#frit").html(frit);
+                            $("#satt").html(satt);
+                            $("#sunt").html(sunt);
+                            localStorage.setItem('gmont', mont);
+                            localStorage.setItem('gtuet', tuet);
+                            localStorage.setItem('gwedt', wedt);
+                            localStorage.setItem('gthut', thut);
+                            localStorage.setItem('gfrit', frit);
+                            localStorage.setItem('gsatt', satt);
+                            localStorage.setItem('gsunt', sunt);
+
+                            var mon=localStorage.getItem('gmont');
+                            var tue=localStorage.getItem('gtuet');
+                            var wed=localStorage.getItem('gwedt');
+                            var thu=localStorage.getItem('gthut');
+                            var fri=localStorage.getItem('gfrit');
+                            var sat=localStorage.getItem('gsatt');
+                            var sun=localStorage.getItem('gsunt');
+
+                            var ctx = document.getElementById('myChart').getContext('2d');
+                            var chart = new Chart(ctx, {
+                                // The type of chart we want to create
+                                type: 'line',
+
+                                // The data for our dataset
+                                data: {
+                                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                                    datasets: [{
+                                        borderColor: "#3e95cd",
+                                        fill: false,
+                                        data: [mon, tue, wed, thu, fri, sat, sun]
+                                    }]
+                                },
+
+                                // Configuration options go here
+                                        options: {
+                                            responsive: true,
+                                            legend: {
+                                                display:false,
+                                                position: 'bottom',
+                                            },
+                                            hover: {
+                                                mode: 'label'
+                                            },
+                                            scales: {
+                                                xAxes: [{
+                                                        display: true,
+                                                    }],
+                                                yAxes: [{
+                                                        display: true,
+                                                        ticks: {
+                                                            suggestedMin: 35, 
+                                                            suggestedMax: 40,
+                                                        }
+                                                    }]
+                                            },
+                                            title: {
+                                                display: true,
+                                                text: 'Temperature C'
+                                            }
+                                        }
+                            });
+                                });
+                            });
+
+                    swal({
+                    title: "Nice!",
+                    text: "Temperature Updated",
+                    icon: "success",
+                    })
+                    .then((Ok) => {
+                      if (Ok) {
+                      }
+                    });
+                } else if (data == "error") {
+                    alert("error");
+                }
+            }
+        });
+
+    };
     </script>
 
     <script src="js/Chart.js" type="text/javascript"></script>
@@ -151,156 +332,9 @@
         </div> </br>
         <div class="item" align="center">
             <button id="update" onclick="update()" class="button button-block" value="Update">Update</button>
-            <button id="update" onclick="destroyg()" class="button button-block" value="Update">Destroy</button>
+            <button id="update" onclick="graph()" class="button button-block" value="Update">Graph</button>
         </div>
     </div>
 
 </body>
-<script>
-
-var mon=localStorage.getItem('gmont');
-var tue=localStorage.getItem('gtuet');
-var wed=localStorage.getItem('gwedt');
-var thu=localStorage.getItem('gthut');
-var fri=localStorage.getItem('gfrit');
-var sat=localStorage.getItem('gsatt');
-var sun=localStorage.getItem('gsunt');
-
-var ctx = document.getElementById('myChart').getContext('2d');
-var chart = new Chart(ctx, {
-    // The type of chart we want to create
-    type: 'line',
-
-    // The data for our dataset
-    data: {
-        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-        datasets: [{
-            borderColor: "#3e95cd",
-            fill: false,
-            data: [mon, tue, wed, thu, fri, sat, sun]
-        }]
-    },
-
-    // Configuration options go here
-            options: {
-                responsive: true,
-                legend: {
-                    display:false,
-                    position: 'bottom',
-                },
-                hover: {
-                    mode: 'label'
-                },
-                scales: {
-                    xAxes: [{
-                            display: true,
-                        }],
-                    yAxes: [{
-                            display: true,
-                            ticks: {
-                                suggestedMin: 35, 
-                                suggestedMax: 40,
-                            }
-                        }]
-                },
-                title: {
-                    display: true,
-                    text: 'Temperature C'
-                }
-            }
-});
-</script>
-
-<script type="text/javascript">
-    function postUpdate(){
-            var url = "http://192.168.8.159/mysql/json.php";
-            var cm = window.localStorage.getItem('cm');
-            console.log(cm);
-             $.getJSON(url,{ "cm": cm }, function(result) {
-                console.log(result);
-                $.each(result, function(i, field) {
-                    var mont = field.MonT;
-                    var tuet = field.TueT;
-                    var wedt = field.WedT;
-                    var thut = field.ThuT;
-                    var frit = field.FriT;
-                    var satt = field.SatT;
-                    var sunt = field.SunT;
-                    $("#mont").html(mont);
-                    $("#tuet").html(tuet);
-                    $("#wedt").html(wedt);
-                    $("#thut").html(thut);
-                    $("#frit").html(frit);
-                    $("#satt").html(satt);
-                    $("#sunt").html(sunt);
-                    localStorage.setItem('gmont', mont);
-                    localStorage.setItem('gtuet', tuet);
-                    localStorage.setItem('gwedt', wedt);
-                    localStorage.setItem('gthut', thut);
-                    localStorage.setItem('gfrit', frit);
-                    localStorage.setItem('gsatt', satt);
-                    localStorage.setItem('gsunt', sunt);
-                });
-            });
-}
-
-
-var mon=localStorage.getItem('gmont');
-var tue=localStorage.getItem('gtuet');
-var wed=localStorage.getItem('gwedt');
-var thu=localStorage.getItem('gthut');
-var fri=localStorage.getItem('gfrit');
-var sat=localStorage.getItem('gsatt');
-var sun=localStorage.getItem('gsunt');
-
-var ctx = document.getElementById('myChart').getContext('2d');
-var chart = new Chart(ctx, {
-    // The type of chart we want to create
-    type: 'line',
-
-    // The data for our dataset
-    data: {
-        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-        datasets: [{
-            borderColor: "#3e95cd",
-            fill: false,
-            data: [mon, tue, wed, thu, fri, sat, sun]
-        }]
-    },
-
-    // Configuration options go here
-            options: {
-                responsive: true,
-                legend: {
-                    display:false,
-                    position: 'bottom',
-                },
-                hover: {
-                    mode: 'label'
-                },
-                scales: {
-                    xAxes: [{
-                            display: true,
-                        }],
-                    yAxes: [{
-                            display: true,
-                            ticks: {
-                                suggestedMin: 35, 
-                                suggestedMax: 40,
-                            }
-                        }]
-                },
-                title: {
-                    display: true,
-                    text: 'Temperature C'
-                }
-            }
-});
-
-
-function destroyg(){
-    chart.destroy();
-}
-</script>
-
 </html>
