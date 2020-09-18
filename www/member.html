@@ -15,46 +15,17 @@
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script type="text/javascript">
 
-            /*var url = "http://192.168.8.159/mysql/json.php";
-            var cm = window.localStorage.getItem('cm');
-            console.log(cm);
-             $.getJSON(url,{ "cm": cm }, function(result) {
-                console.log(result);
-                $.each(result, function(i, field) {
-                    var name = field.name;
-                    var position = field.Position;
-                    var supervisor = field.Supervisor;
-                    var team = field.Team;
-                    var mont = field.MonT;
-                    var tuet = field.TueT;
-                    var wedt = field.WedT;
-                    var thut = field.ThuT;
-                    var frit = field.FriT;
-                    var satt = field.SatT;
-                    var sunt = field.SunT;
-                    $("#name").append(name);
-                    $("#team").append(team);
-                    $("#position").append(position);
-                    $("#supervisor").append(supervisor);
-                    $("#mont").append(mont);
-                    $("#tuet").append(tuet);
-                    $("#wedt").append(wedt);
-                    $("#thut").append(thut);
-                    $("#frit").append(frit);
-                    $("#satt").append(satt);
-                    $("#sunt").append(sunt);
-                    localStorage.setItem('gmont', mont);
-                    localStorage.setItem('gtuet', tuet);
-                    localStorage.setItem('gwedt', wedt);
-                    localStorage.setItem('gthut', thut);
-                    localStorage.setItem('gfrit', frit);
-                    localStorage.setItem('gsatt', satt);
-                    localStorage.setItem('gsunt', sunt);
-                });
-            });*/
-            $( document ).ready(function() {
-            load();
-            });
+
+    $( document ).ready(function() {
+    load();
+    });
+
+    document.addEventListener("deviceready", onDeviceReady, false);
+    function onDeviceReady() {
+        document.addEventListener("backbutton", function (e) {
+            e.preventDefault();
+        }, false );
+}
 
     </script>
     <script>
