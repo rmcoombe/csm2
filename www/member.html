@@ -26,7 +26,9 @@
     <script>
         function load() {
             var ip = window.localStorage.getItem('ip');
+            console.log(ip);
             var url = "http://"+ip+"/mysql/json.php";
+            console.log(url);
             var cm = window.localStorage.getItem('cm');
              $.getJSON(url,{ "cm": cm }, function(result) {
                 $.each(result, function(i, field) {
@@ -125,15 +127,17 @@
         var ip = window.localStorage.getItem('ip');
         var id = window.localStorage.getItem('cm');
         var temp = document.getElementById("temp").value;
+        var fullURL="http://"+ip+"/mysql/update.php";
         var dataString = "id=" + id + "&temp=" + temp + "&update=";
         $.ajax({
             type: "POST",
-            url: "http://"+ip+"/mysql/json.php",
+            url: fullURL,
             data: dataString,
             crossDomain: true,
             cache: false,
             beforeSend: function() {
                 $("#update").val('Connecting...');
+                console.log(fullURL)
             },
             success: function(data) {
                 if (data == "success") {
