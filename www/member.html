@@ -25,7 +25,8 @@
     </script>
     <script>
         function load() {
-            var url = "http://192.168.8.159/mysql/json.php";
+            var ip = window.localStorage.getItem('ip');
+            var url = "http://"+ip+"/mysql/json.php";
             var cm = window.localStorage.getItem('cm');
              $.getJSON(url,{ "cm": cm }, function(result) {
                 $.each(result, function(i, field) {
@@ -121,12 +122,13 @@
 
     function update() {
         //chart.destroy()
+        var ip = window.localStorage.getItem('ip');
         var id = window.localStorage.getItem('cm');
         var temp = document.getElementById("temp").value;
         var dataString = "id=" + id + "&temp=" + temp + "&update=";
         $.ajax({
             type: "POST",
-            url: "http://192.168.8.159/mysql/update.php",
+            url: "http://"+ip+"/mysql/json.php",
             data: dataString,
             crossDomain: true,
             cache: false,
@@ -136,7 +138,7 @@
             success: function(data) {
                 if (data == "success") {
                     $("#update").val("Update");
-                    var url = "http://192.168.8.159/mysql/json.php";
+                    var url = "http://"+ip+"/mysql/json.php";
                     var cm = window.localStorage.getItem('cm');
                     console.log(cm);
                      $.getJSON(url,{ "cm": cm }, function(result) {
@@ -298,7 +300,6 @@
         </div> </br>
         <div class="item" align="center">
             <button id="update" onclick="update()" class="button button-block" value="Update">Update</button>
-            <button id="update" onclick="graph()" class="button button-block" value="Update">Graph</button>
         </div>
     </div>
 
