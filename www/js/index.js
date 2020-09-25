@@ -39,5 +39,6 @@ function onDeviceReady() {
 
 function onBackbutton() {
     window.location.replace("index.html");
+    alert("also working");
 }
 
