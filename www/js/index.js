@@ -25,6 +25,7 @@ cordova.plugins.barcodeScanner.scan(
 };
 
 function onLoad() {
+  alert("working");
     document.addEventListener("deviceready", onDeviceReady, false);
 }
 
