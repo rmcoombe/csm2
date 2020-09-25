@@ -36,7 +36,7 @@ function onDeviceReady() {
     // Add similar listeners for other events
 }
 
-function onPause() {
+function onBackbutton() {
     window.location.replace("index.html");
 }
 
