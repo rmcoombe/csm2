@@ -24,21 +24,15 @@ cordova.plugins.barcodeScanner.scan(
    );
 };
 
-function onLoad() {
-  alert("working");
-    document.addEventListener("deviceready", onDeviceReady, false);
+
+function onDeviceReady(){
+    document.addEventListener("backbutton", function(e){
+        if(window.location.hash=='#member'){
+            e.preventDefault();
+            window.location=index.html;
+        } else {
+            navigator.app.backHistory()
+        }
+    }, false);
 }
-
-// device APIs are available
-//
-function onDeviceReady() {
-    document.addEventListener("backbutton", onBackbutton, false);
-
-    // Add similar listeners for other events
-}
-
-function onBackbutton() {
-    window.location.replace("index.html");
-    alert("also working");
-}
-
+document.addEventListener("deviceready", onDeviceReady, false);
