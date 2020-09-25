@@ -24,3 +24,19 @@ cordova.plugins.barcodeScanner.scan(
    );
 };
 
+function onLoad() {
+    document.addEventListener("deviceready", onDeviceReady, false);
+}
+
+// device APIs are available
+//
+function onDeviceReady() {
+    document.addEventListener("backbutton", onBackbutton, false);
+
+    // Add similar listeners for other events
+}
+
+function onPause() {
+    window.location.replace("index.html");
+}
+
