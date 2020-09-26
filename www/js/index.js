@@ -24,15 +24,3 @@ cordova.plugins.barcodeScanner.scan(
    );
 };
 
-
-function onDeviceReady(){
-    document.addEventListener("backbutton", function(e){
-        if(window.location.hash=='#member'){
-            e.preventDefault();
-            window.location=index.html;
-        } else {
-            navigator.app.backHistory()
-        }
-    }, false);
-}
-document.addEventListener("deviceready", onDeviceReady, false);

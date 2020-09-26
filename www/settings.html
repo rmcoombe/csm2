@@ -34,7 +34,33 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
       var savedIP = window.localStorage.getItem('ip');
       document.getElementById("savedIPAdd").innerHTML="Your current saved IP " + savedIP; 
       }
- </script>     
+ </script>
+<script>
+         function load() {
+            var ip = window.localStorage.getItem('ip');
+            console.log(ip);
+            var url = "http://"+ip+"/mysql/sups.php";
+            console.log(url);
+            var cm = window.localStorage.getItem('cm');
+             $.getJSON(url, function(result) {
+                $.each(result, function(i, field) {
+                    var name = field.name;
+                    var position = field.Position;
+                    var supervisor = field.Supervisor;
+                    var team = field.Team;
+                    var mont = field.MonT;
+                    var tuet = field.TueT;
+                    var wedt = field.WedT;
+                    var thut = field.ThuT;
+                    var frit = field.FriT;
+                    var satt = field.SatT;
+                    var sunt = field.SunT;
+                });
+            });
+           
+       }
+  </script>
+     
 </head>
 <body>
 
